@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby -I lib -w
+
+# load frameworks
+require 'talisman'
+require 'walker'
+require 'adder'
+require 'clynish'
+
+# load game
+require 'tanks'
