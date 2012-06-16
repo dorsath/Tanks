@@ -29,6 +29,10 @@ class Tank < Adder::Body
     set_speed
   end
 
+  def stop
+    change_mode(0)
+  end
+
   def decelerate
     change_mode(@engine_mode - 1)
   end
