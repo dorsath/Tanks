@@ -1,11 +1,13 @@
 require 'tanks/ground'
+require 'tanks/tank'
 
 class Tanks < Talisman::Controller
 
   attr_reader :camera
 
-  def initialize(camera)
+  def initialize(camera, tank)
     @camera = camera
+    @tank   = tank
   end
 
   on key: "=" do
@@ -37,12 +39,14 @@ class Tanks < Talisman::Controller
   end
 end
 
+tank = Tank.new
 
-$camera = camera = Walker::Camera.new( -5)
+$camera = camera = Walker::Camera.new( 5)
 
-window = Walker::Window.new(Tanks.new(camera))
+window = Walker::Window.new(Tanks.new(camera,tank))
 window.views << Walker::CameraView.new(camera)
 window.views << GroundView.new(Ground.new)
+window.views << TankView.new(tank)
 window.add_light_source(Walker::Light.new)
 
 

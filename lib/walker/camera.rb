@@ -33,7 +33,7 @@ module Walker
 
     # Change the matrix to allow for zooming
     def matrix
-      (follow_object ? follow_object.matrix.inverse : Matrix.identity(4)) * rotation.matrix + rotation.translate(0,0,@zoom)
+      (follow_object ? follow_object.matrix.inverse : Matrix.identity(4)) * rotation.matrix + rotation.translate(0,0,-@zoom)
     end
   end
 end

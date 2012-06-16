@@ -7,9 +7,13 @@ module Clynish
     def initialize draw_type
       self.draw_type = draw_type
 
+      glEnable(GL_COLOR_MATERIAL)
+
       glBegin(draw_type)
       yield self if block_given?
       glEnd
+
+      glDisable(GL_COLOR_MATERIAL)
     end
 
     def vertex(x, y, z = 0)

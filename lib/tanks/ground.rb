@@ -12,7 +12,6 @@ class GroundView < Walker::View
 
     mult_matrix(@model.matrix)
 
-    glEnable(GL_COLOR_MATERIAL)
     glScale(4,4,4)
     Draw.new(GL_QUADS) do |draw|
       draw.color(0.2,1.0,0.2)
@@ -33,7 +32,6 @@ class GroundView < Walker::View
     #   end
     # end
 
-    glDisable(GL_COLOR_MATERIAL)
 
   end
 end
