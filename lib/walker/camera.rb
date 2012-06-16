@@ -8,7 +8,7 @@ module Walker
       @zoom = zoom
       self.follow_object = false
       # roll(-Math::PI/2)
-      # yaw(-Math::PI)
+      yaw(-Math::PI)
     end
 
     def zoom_in

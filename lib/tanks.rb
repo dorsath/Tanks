@@ -72,6 +72,7 @@ tank = Tank.new
 Adder::World.instance.add_bodies(tank: tank)
 
 $camera = camera = Walker::Camera.new( 5)
+camera.follow_object = tank
 
 window = Walker::Window.new(Tanks.new(camera,tank))
 window.views << Walker::CameraView.new(camera)
