@@ -64,7 +64,7 @@ class SimpleTank
     Draw.new(GL_TRIANGLE_STRIP) do |d|
       d.circle(0.05, 36) do |x, y|
         d.vertex(x, 0.6 + y, 0)
-        d.vertex(x, 0.6 + y, 0.5)
+        d.vertex(x, 0.6 + y, 1.0)
       end
     end
   end
