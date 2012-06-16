@@ -38,6 +38,14 @@ class Tanks < Talisman::Controller
     camera.yaw( 0.01)
   end
 
+  on key: "a" do
+    tank.turn_left(dt)
+  end
+
+  on key: "d" do
+    tank.turn_right(dt)
+  end
+
   on key: "w" do
     tank.accelerate
   end
@@ -63,8 +71,7 @@ class Tanks < Talisman::Controller
   end
 
   def on_tick
-    @dt = (time - @time)
-    Adder::World.instance.over(@dt)
+    Adder::World.instance.over(dt)
     # p spaceship.velocity
 
     @time = time
@@ -72,6 +79,10 @@ class Tanks < Talisman::Controller
 
   def time
     Time.now.to_f * Adder::World.instance.time_multiplier
+  end
+
+  def dt
+    (time - @time)
   end
 end
 

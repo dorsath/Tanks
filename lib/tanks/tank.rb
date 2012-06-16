@@ -10,10 +10,23 @@ class Tank < Adder::Body
     @engine_modes = (-2..5)
     @engine_mode = 0
     @speed_modifier = 2
+    @traverse_speed = Math::PI / 4 # per second
   end
 
   def set_speed
     self.velocity = Vector[0, 0, @speed_modifier * @engine_mode, 0]
+  end
+
+  def turn_left(dt)
+    rotation.yaw!( @traverse_speed * dt * (reverse? ?  1 : -1) )
+  end
+
+  def turn_right(dt)
+    rotation.yaw!( @traverse_speed * dt * (reverse? ? -1 :  1) )
+  end
+
+  def reverse?
+    @engine_mode < 0
   end
 
   def accelerate
