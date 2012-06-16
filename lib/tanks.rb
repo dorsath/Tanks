@@ -42,6 +42,10 @@ class Tanks < Talisman::Controller
     tank.accelerate
   end
 
+  on key: "s" do
+    tank.decelerate
+  end
+
   on key: "q" do
     exit
   end

@@ -6,10 +6,31 @@ class Tank < Adder::Body
   def initialize
     super
     @draw_model = SimpleTank.new
+
+    @engine_modes = (-2..5)
+    @engine_mode = 0
+    @speed_modifier = 2
+  end
+
+  def set_speed
+    self.velocity = Vector[0, 0, @speed_modifier * @engine_mode, 0]
   end
 
   def accelerate
-    self.velocity = Vector[0, 0, 2, 0]
+    change_mode(@engine_mode + 1)
+  end
+
+  def decelerate
+    change_mode(@engine_mode - 1)
+  end
+
+  def change_mode(new_mode)
+    @engine_mode = new_mode if @engine_modes.include?(new_mode + 1)
+    set_speed
+  end
+
+  def decelerate
+    change_mode(@engine_mode - 1)
   end
 
   def draw
