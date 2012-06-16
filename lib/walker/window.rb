@@ -14,6 +14,7 @@ module Walker
 
     def add_light_source(light)
       light.number = lights.size
+      p light.number
 
       self.lights << light
     end

@@ -20,6 +20,10 @@ module Clynish
       glVertex(x, y, z)
     end
 
+    def texcoord(x,y)
+      glTexCoord(x,y)
+    end
+
     def color(*args)
       glColor(*args)
     end

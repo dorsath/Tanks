@@ -3,6 +3,8 @@ class SimpleTank
   include Gl, Glu, Glut
 
   def draw
+    glMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE, [0.0, 0.0, 0.0, 0.0])
+    glColor(0.8,0.4,0.4)
     body
     turret
   end
@@ -45,7 +47,6 @@ class SimpleTank
   end
 
   def turret
-    glColor(0.8,0.4,0.4)
     Draw.new(GL_TRIANGLE_STRIP) do |d|
       d.circle(0.25, 36) do |x, z|
         d.vertex(x    , 0.5 , z)

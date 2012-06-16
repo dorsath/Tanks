@@ -33,10 +33,6 @@ class Tank < Adder::Body
     change_mode(0)
   end
 
-  def decelerate
-    change_mode(@engine_mode - 1)
-  end
-
   def draw
     @draw_model.draw
   end
