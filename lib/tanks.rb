@@ -50,6 +50,14 @@ class Tanks < Talisman::Controller
     tank.stop
   end
 
+  on key: "f" do
+    window.enter_full_screen
+  end
+
+  on key: "F" do
+    window.leave_full_screen
+  end
+
   on key: "q" do
     exit
   end
