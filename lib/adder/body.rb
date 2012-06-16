@@ -11,13 +11,13 @@ module Adder
     GRAVITATION = 6.67384e-11 #N(m/kg)^2
 
     def initialize args = {}
-      self.position             = args[:position]  if args[:position]
-      self.mass                 = args[:mass]                 || 10
-      self.velocity             = args[:velocity]             || Vector[0, 0, 0, 0]
-      self.acceleration         = args[:acceleration]         || Vector[0, 0, 0, 0]
+      self.position             = Vector[0, 0, 0, 0]
+      self.mass                 = 10
+      self.velocity             = Vector[0, 0, 0, 0]
+      self.acceleration         = Vector[0, 0, 0, 0]
 
-      self.angular_velocity     = args[:angular_velocity]     || Vector[0, 0, 0, 0]
-      self.angular_acceleration = args[:angular_acceleration] || Vector[0, 0, 0, 0]
+      self.angular_velocity     = Vector[0, 0, 0, 0]
+      self.angular_acceleration = Vector[0, 0, 0, 0]
 
       yield self if block_given?
     end
