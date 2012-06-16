@@ -6,6 +6,7 @@ module Clynish
 
     def initialize draw_type
       self.draw_type = draw_type
+
       glBegin(draw_type)
       yield self if block_given?
       glEnd
@@ -17,6 +18,10 @@ module Clynish
 
     def color(*args)
       glColor(*args)
+    end
+
+    def scale(*args)
+      # glScale(*args)
     end
 
     def circle(radius, z_slices, x = 0, y = 0, z = 0)
