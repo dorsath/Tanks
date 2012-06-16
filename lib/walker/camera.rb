@@ -28,7 +28,7 @@ module Walker
     end
 
     def pitch(r)
-      rotation.pitch!(r)
+      rotation.matrix =  rotation.matrix  * rotation.pitch(r)
     end
 
     # Change the matrix to allow for zooming
