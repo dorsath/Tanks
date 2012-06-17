@@ -3,6 +3,8 @@ require 'tanks/models/tanks/simple'
 class Tank < Adder::Body
   include Walker::Rotation
 
+  attr_accessor :light
+
   def initialize
     super
     @draw_model = SimpleTank.new
@@ -56,7 +58,5 @@ class TankView < Walker::View
   def draw
     mult_matrix(@model.matrix)
     @model.draw
-
-
   end
 end

@@ -15,7 +15,7 @@ module Walker
       self.ambient_color   = [0.2, 0.2, 0.2, 1]
       self.diffuse_color   = [0.5, 0.5, 0.5, 1.0]
       self.specular_color  = [0.2, 0.2, 0.2, 1.0]
-      self.position        = [-1.2, -1.2, -4.0]
+      self.position        = [0.0,  0.5,  0.0]
       self.type            = :point
     end
 
@@ -24,12 +24,24 @@ module Walker
     end
 
     def activate
-      p ambient_color
+      enable
 
-      glEnable(gl_light)
       glLightfv(gl_light, GL_AMBIENT, ambient_color)
       glLightfv(gl_light, GL_DIFFUSE, diffuse_color)
       glLightfv(gl_light, GL_SPECULAR, specular_color)
+
+      move
+    end
+
+    def enable
+      glEnable(gl_light)
+    end
+
+    def disable
+      glEnable(gl_light)
+    end
+
+    def move
       glLightfv(gl_light, GL_POSITION, position)
     end
   end

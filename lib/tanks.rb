@@ -3,8 +3,7 @@ require 'tanks/tank'
 
 class Tanks < Talisman::Controller
 
-  attr_reader :camera
-  attr_reader :tank
+  attr_reader :camera, :tank, :light
 
   def initialize(camera, tank)
     @camera = camera
@@ -20,22 +19,6 @@ class Tanks < Talisman::Controller
 
   on key: "-" do
     camera.zoom_out
-  end
-
-  on key: "h" do
-    camera.yaw(-0.01)
-  end
-
-  on key: "j" do
-    camera.pitch( 0.01)
-  end
-
-  on key: "k" do
-    camera.pitch(-0.01)
-  end
-
-  on key: "l" do
-    camera.yaw( 0.01)
   end
 
   on key: "a" do
@@ -90,6 +73,9 @@ class Tanks < Talisman::Controller
   end
 end
 
+sun   = Walker::Light.new
+sun.position = [0, 100, 0]
+
 tank = Tank.new
 
 Adder::World.instance.add_bodies(tank: tank)
@@ -102,7 +88,7 @@ window = Walker::Window.new(Tanks.new(camera,tank))
 window.views << Walker::CameraView.new(camera)
 window.views << GroundView.new(Ground.new)
 window.views << TankView.new(tank)
-window.add_light_source(Walker::Light.new)
+window.add_light_source(sun)
 
 
 window.start
