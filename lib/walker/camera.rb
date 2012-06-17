@@ -19,6 +19,11 @@ module Walker
       @zoom *= 1.1
     end
 
+    def follow_mouse(mouse_dx, mouse_dy)
+        yaw(mouse_dx.to_f / 100)
+      pitch(mouse_dy.to_f / 100)
+    end
+
     def roll(r)
       rotation.roll!(r)
     end

@@ -31,6 +31,18 @@ module Talisman
     end
     alias_method :special_key_up, :key_up
 
+    def mouse_click(key, state, x, y)
+      p [key, state, x, y]
+    end
+
+    def mouse_movement(x, y)
+      @mouse_dx = (@mouse_x || x) - x
+      @mouse_dy = (@mouse_y || y) - y
+
+      @mouse_x, @mouse_y = x, y
+      # p [x, y]
+    end
+
     def callbacks
       self.class.callbacks
     end
@@ -44,6 +56,7 @@ module Talisman
     end
 
     attr_accessor :window
+    attr_reader   :mouse_dx, :mouse_dy
 
     def fire_events
       call_callbacks

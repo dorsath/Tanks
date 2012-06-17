@@ -74,7 +74,11 @@ class Tanks < Talisman::Controller
     Adder::World.instance.over(dt)
     # p spaceship.velocity
 
+    camera.follow_mouse(mouse_dx, mouse_dy)
+
+    @mouse_dx = @mouse_dy = 0
     @time = time
+    # window.reset_pointer
   end
 
   def time
@@ -94,6 +98,7 @@ $camera = camera = Walker::Camera.new( 5)
 camera.follow_object = tank
 
 window = Walker::Window.new(Tanks.new(camera,tank))
+# window.hide_cursor
 window.views << Walker::CameraView.new(camera)
 window.views << GroundView.new(Ground.new)
 window.views << TankView.new(tank)

@@ -45,6 +45,14 @@ module Walker
       glutSwapBuffers
     end
 
+    def hide_cursor
+      glutSetCursor(GLUT_CURSOR_NONE)
+    end
+
+    def reset_pointer
+      glutWarpPointer(width/2,height/2)
+    end
+
     def timer(value)
       glutPostRedisplay
       start_timer
@@ -94,7 +102,6 @@ module Walker
       lights.each(&:activate)
 
 
-
       Textures.instance.load_all
 
       start_timer
@@ -107,6 +114,9 @@ module Walker
       glutSpecialUpFunc  controller.method(:special_key_up).to_proc
       glutKeyboardUpFunc controller.method(:key_up).to_proc
 
+      glutPassiveMotionFunc  controller.method(:mouse_movement).to_proc
+
+      glutSetCursor(GLUT_CURSOR_FULL_CROSSHAIR)
       glutMainLoop
     end
 

@@ -56,5 +56,7 @@ class TankView < Walker::View
   def draw
     mult_matrix(@model.matrix)
     @model.draw
+
+
   end
 end
