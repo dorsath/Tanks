@@ -49,7 +49,7 @@ class Tank < Adder::Body
   end
 
   def draw
-    @draw_model.draw
+    @draw_model.draw(velocity.magnitude * (reverse? ? -1 :  1))
   end
 
 end
