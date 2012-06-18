@@ -1,5 +1,6 @@
 require 'tanks/ground'
 require 'tanks/tank'
+require 'environment'
 
 class Tanks < Talisman::Controller
 
