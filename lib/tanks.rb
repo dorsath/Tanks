@@ -1,5 +1,6 @@
 require 'tanks/ground'
 require 'tanks/tank'
+require 'tanks/airplane'
 require 'environment'
 
 class Tanks < Talisman::Controller
@@ -24,18 +25,34 @@ class Tanks < Talisman::Controller
   end
 
   on key: "a" do
-    tank.turn_left(dt)
+    tank.roll( 1 * dt)
   end
 
   on key: "d" do
-    tank.turn_right(dt)
+    tank.roll(-1 * dt)
+  end
+
+  on key: "z" do
+    tank.yaw( 1 * dt)
+  end
+
+  on key: "c" do
+    tank.yaw(-1 * dt)
   end
 
   on key: "w" do
-    tank.accelerate
+    tank.pitch(-1 * dt)
   end
 
   on key: "s" do
+    tank.pitch( 1 * dt)
+  end
+
+  on key: "[" do
+    tank.accelerate
+  end
+
+  on key: "]" do
     tank.decelerate
   end
 
@@ -64,7 +81,7 @@ class Tanks < Talisman::Controller
     x = tank.matrix[3,0]
     z = tank.matrix[3,2]
 
-    tank.rotation.translate!(0,ground.location(x,z) - tank.matrix[3,1], 0)
+    # tank.rotation.translate!(0,ground.location(x,z) - tank.matrix[3,1], 0)
     # p tank.matrix[3,1]
 
     # ground.location(x,z)
@@ -86,7 +103,8 @@ sun   = Walker::Light.new
 sun.position = [1, 1, 0]
 
 ground = Ground.new
-tank = Tank.new
+tank = Airplane.new
+tank.position = [160,50,160]
 
 Adder::World.instance.add_bodies(tank: tank)
 
@@ -97,7 +115,7 @@ window = Walker::Window.new(Tanks.new(camera,tank, ground))
 # window.hide_cursor
 window.views << Walker::CameraView.new(camera)
 window.views << GroundView.new(ground)
-window.views << TankView.new(tank)
+window.views << AirplaneView.new(tank)
 window.add_light_source(sun)
 
 
