@@ -12,9 +12,9 @@ module Walker
 
     def default_values!
       self.attenuation     = {:constant => 0, :linear => 1.0, :quadratic => 0}
-      self.ambient_color   = [0.2, 0.2, 0.2, 1]
-      self.diffuse_color   = [0.5, 0.5, 0.5, 1.0]
-      self.specular_color  = [0.2, 0.2, 0.2, 1.0]
+      self.ambient_color   = [0.3, 0.3, 0.3, 1]
+      self.diffuse_color   = [1.0, 1.0, 1.0, 1.0]
+      self.specular_color  = [0.1, 0.1, 0.1, 1.0]
       self.position        = [0.0,  0.5,  0.0]
       self.type            = :point
     end

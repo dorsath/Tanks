@@ -16,9 +16,11 @@ class SimpleTank
   end
 
   def draw(velocity)
-    # glMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE, [0.5, 0.5, 0.5, 0.5])
     glEnable(GL_COLOR_MATERIAL)
-    glColor(0.4,0.4,0.4)
+    glMaterial(GL_FRONT_AND_BACK, GL_EMISSION, [0.0, 0.0, 0.0, 1.0])
+    glMaterial(GL_FRONT_AND_BACK, GL_SPECULAR, [1.0, 1.0, 1.0, 0.2])
+    glMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE, [1.0, 1.0, 1.0, 0.8])
+    glColor(0.8,0.4,0.4)
     # glutSolidSphere(1,36,36)
 
     glTranslate(0,0.01,0)

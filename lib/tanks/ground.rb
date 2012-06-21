@@ -24,7 +24,27 @@ class Ground < Adder::Body
         @level << data[width][height].red
       end
     end
-    p level[4065]
+  end
+
+  def point(x,z)
+    # p [x,z,(x/10 + z/10 * width).round]
+    level[(x + z * width).round]/3000
+  end
+
+  def location(x,z)
+    x = x/10
+    z = z/10
+
+#
+#     p "---------------------"
+    # p [x.floor, x.ceil]
+    # p "#{point(x.floor, z.ceil) } + #{point(x.ceil, z.ceil) }"
+    # p "#{point(x.floor, z.floor)} + #{point(x.ceil, z.floor)}"
+
+    # p point(x.ceil, z.ceil) - point(x.floor, z.ceil)
+    # (x - x.floor) * ( point(x.ceil, z.ceil) - point(x.floor, z.ceil) )
+    (z - z.floor) * ( point(x.floor, z.ceil) - point(x.floor, z.floor) ) + point(x.floor, z.floor)
+    # (z - z.floor) * ( point(x.ceil, z.ceil) - point(x.floor, z.ceil) ) + point(x.floor, z.ceil)
   end
 
 end
@@ -35,26 +55,41 @@ class GroundView < Walker::View
 
   def draw
     mult_matrix(@model.matrix)
+    glColor(1,1,1)
+    # glMaterial(GL_FRONT_AND_BACK, GL_EMISSION, [0.0, 0.0, 0.0, 1.0])
+    # glMaterial(GL_FRONT_AND_BACK, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
     # tree
     ground
   end
 
 
   def ground
-    glTranslate(-@model.width/0.2,0,-@model.height/0.2)
-    glScale(10,1,10)
-    height_multiplier = 25000 #lower is higher :D
-    Draw.new(GL_TRIANGLES) do |d|
-      (@model.level.size - 2 * @model.width).times do |i|
-        d.vertex(i - (i/ @model.width).floor * @model.width    , @model.level[i]/height_multiplier                   , (i / @model.width).floor)
-        d.vertex(i - (i/ @model.width).floor * @model.width    , @model.level[i + (@model.width)]/height_multiplier  , (i / @model.width).floor + 1)
-        d.vertex(i - (i/ @model.width).floor * @model.width + 1, @model.level[i + 1]/height_multiplier               , (i / @model.width).floor)
+    texture = Walker::Textures.instance.find(:grass,2)
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture)
 
-        d.vertex(i - (i/ @model.width).floor * @model.width + 1, @model.level[i + 1]/height_multiplier                   , (i / @model.width).floor)
+    glScale(10,10,10)
+    height_multiplier = 30000 #lower is higher :D
+    Draw.new(GL_TRIANGLES) do |d|
+      (@model.level.size - @model.width - 1).times do |i|
+
+        d.texcoord(0,1)
+        d.vertex(i - (i/ @model.width).floor * @model.width    , @model.level[i]/height_multiplier                       , (i / @model.width).floor)
+        d.texcoord(1,1)
         d.vertex(i - (i/ @model.width).floor * @model.width    , @model.level[i + (@model.width)]/height_multiplier      , (i / @model.width).floor + 1)
+        d.texcoord(1,0)
+        d.vertex(i - (i/ @model.width).floor * @model.width + 1, @model.level[i + 1]/height_multiplier                   , (i / @model.width).floor)
+
+        d.texcoord(0,1)
+        d.vertex(i - (i/ @model.width).floor * @model.width + 1, @model.level[i + 1]/height_multiplier                   , (i / @model.width).floor)
+        d.texcoord(0,0)
+        d.vertex(i - (i/ @model.width).floor * @model.width    , @model.level[i + (@model.width)]/height_multiplier      , (i / @model.width).floor + 1)
+        d.texcoord(1,1)
         d.vertex(i - (i/ @model.width).floor * @model.width + 1, @model.level[i + (@model.width) + 1]/height_multiplier  , (i / @model.width).floor + 1)
       end
     end
+
+    glDisable(GL_TEXTURE_2D);
   end
 
   def old

@@ -4,11 +4,12 @@ require 'environment'
 
 class Tanks < Talisman::Controller
 
-  attr_reader :camera, :tank, :light
+  attr_reader :camera, :tank, :light, :ground
 
-  def initialize(camera, tank)
+  def initialize(camera, tank, ground)
     @camera = camera
     @tank   = tank
+    @ground = ground
 
     @time = time
     @dt   = 0
@@ -60,6 +61,13 @@ class Tanks < Talisman::Controller
 
     camera.follow_mouse(mouse_dx, mouse_dy)
 
+    x = tank.matrix[3,0]
+    z = tank.matrix[3,2]
+
+    tank.rotation.translate!(0,ground.location(x,z) - tank.matrix[3,1], 0)
+    # p tank.matrix[3,1]
+
+    # ground.location(x,z)
     @mouse_dx = @mouse_dy = 0
     @time = time
     # window.reset_pointer
@@ -75,8 +83,9 @@ class Tanks < Talisman::Controller
 end
 
 sun   = Walker::Light.new
-sun.position = [0, 100, 0]
+sun.position = [1, 1, 0]
 
+ground = Ground.new
 tank = Tank.new
 
 Adder::World.instance.add_bodies(tank: tank)
@@ -84,10 +93,10 @@ Adder::World.instance.add_bodies(tank: tank)
 $camera = camera = Walker::Camera.new( 5)
 camera.follow_object = tank
 
-window = Walker::Window.new(Tanks.new(camera,tank))
+window = Walker::Window.new(Tanks.new(camera,tank, ground))
 # window.hide_cursor
 window.views << Walker::CameraView.new(camera)
-window.views << GroundView.new(Ground.new)
+window.views << GroundView.new(ground)
 window.views << TankView.new(tank)
 window.add_light_source(sun)
 
