@@ -59,16 +59,25 @@ class GroundView < Walker::View
     # glMaterial(GL_FRONT_AND_BACK, GL_EMISSION, [0.0, 0.0, 0.0, 1.0])
     # glMaterial(GL_FRONT_AND_BACK, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
     # tree
+
     ground
+
+
+    glPopMatrix
+    air
+    glPushMatrix
   end
 
+  def air
+    glutSolidSphere(1200,36,36)
+  end
 
   def ground
     texture = Walker::Textures.instance.find(:grass,2)
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture)
 
-    glScale(10,10,10)
+    glScale(40,10,40)
     height_multiplier = 30000 #lower is higher :D
     Draw.new(GL_TRIANGLES) do |d|
       (@model.level.size - @model.width - 1).times do |i|
